@@ -1,0 +1,722 @@
+.app-main.jurado-main {
+  max-width: 1100px;
+}
+
+.app-main.jurado-gallery-main {
+  max-width: none;
+}
+
+/* ---------- Header del jurado ---------- */
+
+.jurado-header {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-6);
+  padding: var(--space-4);
+  background: var(--color-background);
+  box-shadow: var(--shadow-sm);
+  z-index: 20;
+}
+
+@media (min-width: 768px) {
+  .jurado-header {
+    padding: var(--space-4) var(--space-8);
+    position: sticky;
+    top: 0;
+  }
+}
+
+.jurado-brand {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+  text-decoration: none;
+  order: 1;
+}
+
+.jurado-brand-nombre {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: var(--text-xl);
+  color: var(--color-text);
+  letter-spacing: -0.02em;
+}
+
+.jurado-brand-tag {
+  font-size: var(--text-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-primary-strong);
+  background: color-mix(in srgb, var(--color-primary) 12%, var(--color-background));
+  padding: 3px var(--space-2);
+  border-radius: 999px;
+}
+
+.jurado-nav {
+  display: flex;
+  gap: var(--space-1);
+  order: 3;
+  flex-basis: 100%;
+  background: var(--color-surface);
+  padding: var(--space-1);
+  border-radius: 999px;
+  width: fit-content;
+}
+
+@media (min-width: 768px) {
+  .jurado-nav {
+    order: 2;
+    flex-basis: auto;
+    margin-left: var(--space-4);
+  }
+}
+
+.jurado-nav-link {
+  display: flex;
+  align-items: center;
+  min-height: 40px;
+  padding: var(--space-2) var(--space-4);
+  border-radius: 999px;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-text-muted);
+  text-decoration: none;
+  transition:
+    color var(--motion-fast) var(--motion-ease),
+    background var(--motion-fast) var(--motion-ease);
+}
+
+.jurado-nav-link:hover {
+  color: var(--color-text);
+}
+
+.jurado-nav-link.is-active {
+  color: var(--color-background);
+  background: var(--color-primary-strong);
+}
+
+.jurado-header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  order: 2;
+  margin-left: auto;
+}
+
+@media (min-width: 768px) {
+  .jurado-header-actions {
+    order: 3;
+  }
+}
+
+.jurado-header-nombre {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  font-weight: 500;
+  white-space: nowrap;
+  padding-right: var(--space-4);
+  border-right: 1px solid var(--color-border-subtle);
+}
+
+@media (max-width: 479px) {
+  .jurado-header-nombre {
+    display: none;
+  }
+}
+
+.jurado-logout {
+  background: none;
+  border: none;
+  min-height: 44px;
+  padding: 0;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: color var(--motion-fast) var(--motion-ease);
+}
+
+.jurado-logout:hover {
+  color: var(--color-error);
+}
+
+/* ---------- Login ---------- */
+
+.jurado-login-card {
+  max-width: 420px;
+  margin-inline: auto;
+}
+
+/* ---------- Galeria ---------- */
+
+.jurado-gallery-intro {
+  margin-bottom: var(--space-6);
+}
+
+.jurado-tabs {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  row-gap: var(--space-1);
+  column-gap: var(--space-6);
+  margin-bottom: var(--space-6);
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.jurado-contador {
+  margin-left: auto;
+  padding: var(--space-3) 0;
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+.jurado-tab {
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  padding: var(--space-4) 0;
+  min-height: 44px;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: color var(--motion-fast) var(--motion-ease), border-color var(--motion-fast) var(--motion-ease);
+}
+
+.jurado-tab:hover {
+  color: var(--color-text);
+}
+
+.jurado-tab.is-active {
+  color: var(--color-primary-strong);
+  border-bottom-color: var(--color-primary);
+}
+
+.jurado-tabs-secundarias {
+  gap: var(--space-8);
+  margin-top: calc(var(--space-6) * -1);
+  border-bottom: none;
+}
+
+.jurado-tabs-secundarias .jurado-tab {
+  font-size: var(--text-xs);
+}
+
+.jurado-empty {
+  color: var(--color-text-muted);
+  text-align: center;
+  padding: var(--space-16) 0;
+}
+
+.jurado-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: var(--space-4);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.jurado-card {
+  position: relative;
+  display: block;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  text-decoration: none;
+}
+
+.jurado-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform var(--motion-base) var(--motion-ease);
+}
+
+.jurado-card:hover img,
+.jurado-card:focus-visible img {
+  transform: scale(1.05);
+}
+
+.jurado-card-categoria {
+  position: absolute;
+  top: var(--space-2);
+  left: var(--space-2);
+  padding: var(--space-1) var(--space-2);
+  border-radius: 999px;
+  background: rgba(252, 253, 255, 0.92);
+  color: var(--color-text);
+  font-size: var(--text-xs);
+  font-weight: 600;
+}
+
+.jurado-card-badge {
+  position: absolute;
+  top: var(--space-2);
+  right: var(--space-2);
+  padding: var(--space-1) var(--space-2);
+  border-radius: 999px;
+  background: var(--color-text);
+  color: var(--color-background);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  box-shadow: var(--shadow-sm);
+}
+
+.jurado-card-overlay {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  padding: var(--space-12) var(--space-4) var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  background: linear-gradient(to top, rgba(10, 8, 6, 0.92) 0%, rgba(10, 8, 6, 0.55) 55%, rgba(10, 8, 6, 0) 100%);
+  color: var(--color-background);
+  pointer-events: none;
+}
+
+.jurado-card-titulo {
+  font-weight: 700;
+  font-size: var(--text-base);
+  line-height: 1.25;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.jurado-card-participante {
+  font-size: var(--text-xs);
+  color: rgba(252, 253, 255, 0.85);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ---------- Detalle ---------- */
+
+.jurado-volver {
+  display: inline-block;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  text-decoration: none;
+  margin-bottom: var(--space-6);
+}
+
+.jurado-volver:hover {
+  color: var(--color-text);
+  text-decoration: underline;
+}
+
+.jurado-detail {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.jurado-detail-image-wrap {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: zoom-in;
+}
+
+.jurado-detail-image-frame {
+  position: relative;
+  display: inline-block;
+  max-width: 100%;
+  line-height: 0;
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+
+.jurado-detail-image-frame img {
+  display: block;
+  max-width: 100%;
+  max-height: 70vh;
+  width: auto;
+  height: auto;
+  transition: transform var(--motion-base) var(--motion-ease);
+}
+
+.jurado-detail-image-wrap:hover .jurado-detail-image-frame img {
+  transform: scale(1.015);
+}
+
+.jurado-detail-image-frame::after {
+  content: "";
+  position: absolute;
+  bottom: var(--space-3);
+  right: var(--space-3);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(20, 16, 12, 0.55);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none' stroke='%23fcfdff' stroke-width='1.6'%3E%3Cpath d='M7 3H3v4M13 3h4v4M7 17H3v-4M13 17h4v-4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 16px;
+}
+
+/* ---------- Lightbox ---------- */
+
+.jurado-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-6);
+  background: rgba(15, 12, 9, 0.92);
+  animation: lightbox-entra var(--motion-base) var(--motion-ease);
+}
+
+@keyframes lightbox-entra {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.jurado-lightbox-imagen {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: var(--radius-sm);
+}
+
+.jurado-lightbox-cerrar {
+  position: absolute;
+  top: var(--space-4);
+  right: var(--space-4);
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.12);
+  color: var(--color-background);
+  cursor: pointer;
+  transition: background var(--motion-fast) var(--motion-ease);
+}
+
+.jurado-lightbox-cerrar:hover {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.jurado-detail-body {
+  background: var(--color-background);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  padding: var(--space-6) var(--space-4);
+}
+
+@media (min-width: 768px) {
+  .jurado-detail-body {
+    padding: var(--space-8);
+  }
+}
+
+.jurado-detail-participante {
+  font-size: var(--text-lg);
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-8);
+}
+
+.jurado-historia {
+  max-width: 70ch;
+  margin-bottom: var(--space-8);
+}
+
+.jurado-historia-item {
+  margin-bottom: var(--space-6);
+}
+
+.jurado-historia-item h2 {
+  font-size: var(--text-base);
+  font-weight: 700;
+  margin-bottom: var(--space-2);
+}
+
+.jurado-historia-item p {
+  color: var(--color-text);
+  line-height: 1.6;
+}
+
+/* ---------- Evaluacion (rubrica) ---------- */
+
+.jurado-evaluacion {
+  padding-top: var(--space-8);
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+.jurado-evaluacion-titulo {
+  font-size: var(--text-2xl);
+  margin-bottom: var(--space-2);
+}
+
+.jurado-rubrica-categoria {
+  border: none;
+  padding: 0;
+  margin: var(--space-8) 0 0;
+}
+
+.jurado-rubrica-categoria legend {
+  display: block;
+  width: 100%;
+  font-size: var(--text-lg);
+  font-weight: 700;
+  margin-bottom: var(--space-3);
+  padding: 0;
+}
+
+.jurado-rubrica-opciones {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.jurado-rubrica-opcion {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition:
+    border-color var(--motion-fast) var(--motion-ease),
+    background var(--motion-fast) var(--motion-ease);
+}
+
+.jurado-rubrica-opcion:hover {
+  border-color: var(--color-text-muted);
+}
+
+.jurado-rubrica-opcion:focus-within {
+  outline: 2px solid var(--color-primary-strong);
+  outline-offset: 2px;
+}
+
+.jurado-rubrica-opcion input[type="radio"] {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  margin-top: 3px;
+  accent-color: var(--color-primary-strong);
+  cursor: pointer;
+}
+
+.jurado-rubrica-opcion-contenido {
+  flex: 1;
+  min-width: 0;
+}
+
+.jurado-rubrica-opcion-nivel {
+  display: block;
+  font-weight: 700;
+  font-size: var(--text-sm);
+  margin-bottom: var(--space-1);
+}
+
+.jurado-rubrica-opcion-texto {
+  display: block;
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  line-height: 1.5;
+}
+
+.jurado-rubrica-opcion.is-selected {
+  border-color: var(--color-primary);
+  background: color-mix(in srgb, var(--color-primary) 8%, var(--color-background));
+}
+
+.jurado-rubrica-opcion.is-selected .jurado-rubrica-opcion-nivel {
+  color: var(--color-primary-strong);
+}
+
+.jurado-total {
+  margin: var(--space-8) 0 var(--space-4);
+  padding: var(--space-4);
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  text-align: center;
+  font-size: var(--text-lg);
+  font-weight: 600;
+}
+
+/* ---------- Resultados ---------- */
+
+.jurado-resultados-categoria {
+  margin-bottom: var(--space-8);
+  background: var(--color-background);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  padding: var(--space-6) var(--space-4);
+}
+
+@media (min-width: 768px) {
+  .jurado-resultados-categoria {
+    padding: var(--space-8);
+  }
+}
+
+.jurado-resultados-categoria-header {
+  margin-bottom: var(--space-4);
+}
+
+.jurado-resultados-categoria-header h2 {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 700;
+}
+
+.jurado-resultados-lista {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.jurado-resultado-fila {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+}
+
+.jurado-resultado-fila.es-podio {
+  background: color-mix(in srgb, var(--color-primary) 6%, var(--color-background));
+}
+
+.jurado-resultado-posicion {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--color-text-muted);
+  background: var(--color-surface);
+}
+
+.es-podio .jurado-resultado-posicion {
+  color: var(--color-background);
+  background: var(--color-primary-strong);
+}
+
+.jurado-resultado-imagen {
+  flex-shrink: 0;
+  width: 64px;
+  height: 64px;
+  border-radius: var(--radius-sm);
+  object-fit: cover;
+}
+
+.jurado-resultado-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.jurado-resultado-titulo {
+  font-weight: 700;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.jurado-resultado-participante {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.jurado-resultado-puntaje {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+  text-align: right;
+}
+
+.jurado-resultado-puntaje strong {
+  font-size: var(--text-xl);
+  font-family: var(--font-display);
+}
+
+.jurado-resultado-conteo {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+@media (max-width: 479px) {
+  .jurado-resultado-imagen {
+    display: none;
+  }
+}
+
+/* ---------- Resultados en espera ---------- */
+
+.jurado-resultados-espera {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--space-3);
+  max-width: 48ch;
+  margin: var(--space-8) auto;
+  padding: var(--space-12) var(--space-6);
+  background: var(--color-background);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+}
+
+.jurado-resultados-espera svg {
+  color: var(--color-primary-strong);
+}
+
+.jurado-resultados-espera h2 {
+  font-family: var(--font-display);
+  font-size: var(--text-xl);
+  font-weight: 700;
+}
+
+.jurado-resultados-espera p {
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+
+.jurado-resultados-espera p.jurado-resultados-progreso {
+  font-weight: 600;
+  color: var(--color-text);
+}

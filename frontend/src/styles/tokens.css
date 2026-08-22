@@ -1,0 +1,66 @@
+:root {
+  /* Marca */
+  --color-primary: #f25c05;
+  /* Versión más oscura del naranja de marca, solo para texto/iconos pequeños
+     sobre fondo claro (el naranja puro no llega a 4.5:1 con texto normal). */
+  --color-primary-strong: #c24704;
+  --color-background: #fcfdff;
+  --color-success: #458c57;
+  --color-success-bg: #eaf3ec;
+  /* Versión más oscura del verde, para texto normal sobre --color-success-bg
+     (el verde base no llega a 4.5:1 ahí; solo sirve para texto grande). */
+  --color-success-strong: #2e6b42;
+
+  /* Neutros (calidos, no grises puros) */
+  --color-text: #221d18;
+  --color-text-muted: #6b6259;
+  --color-surface: #f6f2ea;
+  --color-border: #d6ccbc;
+  --color-border-subtle: #eae3d6;
+
+  /* Semanticos */
+  --color-error: #c1432b;
+  --color-error-bg: #fbeae6;
+  --color-warning: #a8710a;
+  --color-warning-bg: #fbf1de;
+  /* Versión más oscura del ámbar, para texto normal (el tono base no
+     llega a 4.5:1 con texto pequeño). */
+  --color-warning-strong: #8a5c08;
+
+  /* Tipografia */
+  --font-display: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-body: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --text-xs: 0.75rem; /* 12px */
+  --text-sm: 0.875rem; /* 14px */
+  --text-base: 1rem; /* 16px */
+  --text-lg: 1.25rem; /* 20px */
+  --text-xl: 1.5625rem; /* 25px */
+  --text-2xl: 1.9375rem; /* 31px */
+  --text-3xl: 2.4375rem; /* 39px */
+  --text-4xl: 3.0625rem; /* 49px */
+
+  /* Espaciado (grid de 8pt) */
+  --space-1: 0.25rem; /* 4px */
+  --space-2: 0.5rem; /* 8px */
+  --space-3: 0.75rem; /* 12px */
+  --space-4: 1rem; /* 16px */
+  --space-6: 1.5rem; /* 24px */
+  --space-8: 2rem; /* 32px */
+  --space-12: 3rem; /* 48px */
+  --space-16: 4rem; /* 64px */
+  --space-24: 6rem; /* 96px */
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+
+  --shadow-sm: 0 1px 3px rgba(34, 29, 24, 0.08);
+  --shadow-md: 0 8px 24px rgba(34, 29, 24, 0.1);
+
+  --content-width: 640px;
+
+  --motion-fast: 120ms;
+  --motion-base: 200ms;
+  --motion-ease: cubic-bezier(0.4, 0, 0.2, 1);
+}
