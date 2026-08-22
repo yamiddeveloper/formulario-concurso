@@ -707,8 +707,15 @@ textarea {
   max-width: 48ch;
 }
 
+/* Se usa tanto en un h1 (mensaje de ventana cerrada) como en un p (estado
+   de carga), asi que define su tipografia sin depender de la regla de h1. */
 .ventana-titulo {
+  font-family: var(--font-display);
   font-size: var(--text-2xl);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--color-text);
   max-width: 18ch;
 }
 
@@ -937,6 +944,12 @@ textarea {
   border: 2.5px solid currentColor;
   border-top-color: transparent;
   animation: spin 700ms linear infinite;
+}
+
+.spinner-grande {
+  width: 30px;
+  height: 30px;
+  border-width: 3px;
 }
 
 @keyframes spin {

@@ -8,6 +8,7 @@ import StepHistoria from "../components/StepHistoria";
 import StepConfirmacion from "../components/StepConfirmacion";
 import SuccessScreen from "../components/SuccessScreen";
 import VentanaInscripcionCerrada from "../components/VentanaInscripcionCerrada";
+import EstadoCargando from "../components/EstadoCargando";
 import Button from "../components/Button";
 
 export default function InscripcionPage() {
@@ -60,14 +61,15 @@ export default function InscripcionPage() {
   }, [paso]);
 
   const mostrarWizard = ventana?.abierta && estado !== "exito";
-  // Cuando las inscripciones no estan abiertas no hay tarea que completar:
-  // la pantalla se convierte en un unico mensaje a pantalla completa, sin
-  // encabezado ni marco de formulario compitiendo por atencion.
-  const ventanaCerrada = Boolean(ventana) && !ventana.abierta;
+  // Mientras se consulta el estado, y cuando las inscripciones no estan
+  // abiertas, no hay tarea que completar: la pantalla se reduce a un unico
+  // mensaje centrado, sin encabezado ni marco de formulario compitiendo por
+  // atencion.
+  const pantallaDeMensaje = !ventana || !ventana.abierta;
 
   return (
     <div className="app-shell">
-      {!ventanaCerrada && (
+      {!pantallaDeMensaje && (
         <header className="app-header">
           <p className="brand">Concurso de Fotografía Chitagá</p>
           {mostrarWizard && (
@@ -80,9 +82,11 @@ export default function InscripcionPage() {
         {mostrarWizard && `Paso ${paso} de ${totalPasos}: ${NOMBRES_PASO[paso - 1]}`}
       </p>
 
-      <main className={`app-main${ventanaCerrada ? " app-main-pleno" : ""}`}>
-        <div className={`form-card${ventanaCerrada ? " form-card-pleno" : ""}`}>
-          {!ventana ? null : !ventana.abierta ? (
+      <main className={`app-main${pantallaDeMensaje ? " app-main-pleno" : ""}`}>
+        <div className={`form-card${pantallaDeMensaje ? " form-card-pleno" : ""}`}>
+          {!ventana ? (
+            <EstadoCargando />
+          ) : !ventana.abierta ? (
             <VentanaInscripcionCerrada motivo={ventana.motivo} inicio={ventana.inicio} fin={ventana.fin} />
           ) : estado === "exito" ? (
             <SuccessScreen resultado={resultado} />
