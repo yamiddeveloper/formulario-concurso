@@ -1,0 +1,25 @@
+name: Mantener el backend despierto
+
+# El plan gratuito de Render suspende el servicio tras ~15 minutos sin
+# trafico, y despertarlo toma cerca de un minuto. Este ping periodico lo
+# mantiene activo durante las horas en que alguien podria inscribirse.
+#
+# Solo corre entre las 5:00 y las 23:59 hora de Colombia (UTC-5), es decir
+# 10:00-23:59 y 00:00-04:59 UTC. De madrugada se deja dormir para no agotar
+# las 750 horas de instancia que Render regala al mes; si alguien entra a esa
+# hora, la pagina muestra su estado de carga mientras el servidor despierta.
+on:
+  schedule:
+    - cron: "*/10 10-23,0-4 * * *"
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Despertar la API
+        run: |
+          curl --silent --show-error --fail \
+               --max-time 120 \
+               --retry 3 --retry-delay 20 --retry-all-errors \
+               https://formulario-concurso-56ye.onrender.com/health
