@@ -60,22 +60,28 @@ export default function InscripcionPage() {
   }, [paso]);
 
   const mostrarWizard = ventana?.abierta && estado !== "exito";
+  // Cuando las inscripciones no estan abiertas no hay tarea que completar:
+  // la pantalla se convierte en un unico mensaje a pantalla completa, sin
+  // encabezado ni marco de formulario compitiendo por atencion.
+  const ventanaCerrada = Boolean(ventana) && !ventana.abierta;
 
   return (
     <div className="app-shell">
-      <header className="app-header">
-        <p className="brand">Concurso de Fotografía Chitagá</p>
-        {mostrarWizard && (
-          <ProgressSteps paso={paso} totalPasos={totalPasos} pasosCompletados={pasosCompletados} />
-        )}
-      </header>
+      {!ventanaCerrada && (
+        <header className="app-header">
+          <p className="brand">Concurso de Fotografía Chitagá</p>
+          {mostrarWizard && (
+            <ProgressSteps paso={paso} totalPasos={totalPasos} pasosCompletados={pasosCompletados} />
+          )}
+        </header>
+      )}
 
       <p className="visually-hidden" role="status" aria-live="polite">
         {mostrarWizard && `Paso ${paso} de ${totalPasos}: ${NOMBRES_PASO[paso - 1]}`}
       </p>
 
-      <main className="app-main">
-        <div className="form-card">
+      <main className={`app-main${ventanaCerrada ? " app-main-pleno" : ""}`}>
+        <div className={`form-card${ventanaCerrada ? " form-card-pleno" : ""}`}>
           {!ventana ? null : !ventana.abierta ? (
             <VentanaInscripcionCerrada motivo={ventana.motivo} inicio={ventana.inicio} fin={ventana.fin} />
           ) : estado === "exito" ? (

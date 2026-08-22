@@ -111,6 +111,42 @@ textarea {
   }
 }
 
+/* Variante para el mensaje de inscripciones cerradas: en movil la tarjeta
+   ocupa todo el viewport (no hay nada mas que mostrar); desde tablet vuelve
+   a ser una tarjeta centrada sobre el fondo calido. */
+.app-main.app-main-pleno {
+  max-width: none;
+  padding: 0;
+  display: flex;
+}
+
+.form-card.form-card-pleno {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0;
+  box-shadow: none;
+  padding: var(--space-8) var(--space-4);
+}
+
+@media (min-width: 768px) {
+  .app-main.app-main-pleno {
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-12) var(--space-6);
+  }
+
+  .form-card.form-card-pleno {
+    flex: 0 1 auto;
+    width: 100%;
+    max-width: 560px;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    padding: var(--space-16) var(--space-12);
+  }
+}
+
 /* ---------- Encabezado ---------- */
 
 .app-header {
@@ -667,7 +703,83 @@ textarea {
   align-items: center;
   text-align: center;
   gap: var(--space-3);
-  padding-block: var(--space-8);
+  width: 100%;
+  max-width: 48ch;
+}
+
+.ventana-titulo {
+  font-size: var(--text-2xl);
+  max-width: 18ch;
+}
+
+@media (min-width: 768px) {
+  .ventana-titulo {
+    font-size: var(--text-3xl);
+  }
+}
+
+.ventana-texto {
+  color: var(--color-text-muted);
+  max-width: 44ch;
+  line-height: 1.6;
+}
+
+/* ---------- Fecha destacada ---------- */
+
+.ventana-fecha {
+  margin-top: var(--space-6);
+  width: 100%;
+  padding: var(--space-6) var(--space-4);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-subtle);
+}
+
+@media (min-width: 768px) {
+  .ventana-fecha {
+    padding: var(--space-6) var(--space-8);
+  }
+}
+
+.ventana-fecha-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  font-size: var(--text-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--color-primary-strong);
+  margin-bottom: var(--space-3);
+}
+
+.ventana-fecha-valor {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  color: var(--color-text);
+}
+
+/* La fecha viene de Intl en minusculas ("lunes, 24 de agosto..."). Solo se
+   capitaliza la inicial: `capitalize` afectaria tambien a "de". */
+.ventana-fecha-valor::first-letter {
+  text-transform: uppercase;
+}
+
+@media (min-width: 768px) {
+  .ventana-fecha-valor {
+    font-size: var(--text-xl);
+  }
+}
+
+.ventana-fecha-hora {
+  margin-top: var(--space-2);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  color: var(--color-text-muted);
 }
 
 .ventana-icono-wrap {
