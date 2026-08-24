@@ -12,6 +12,12 @@ function crearApp() {
   const app = express();
 
   app.disable('x-powered-by');
+  // Render (como la mayoria de PaaS) sirve la app detras de un proxy que
+  // agrega X-Forwarded-For. Sin confiar en ese salto, express-rate-limit no
+  // puede identificar al cliente y responde 500 en cada peticion limitada.
+  // Se confia en un solo salto, no en `true`: confiar en todos permitiria
+  // falsificar la IP y esquivar el limite.
+  app.set('trust proxy', Number(process.env.TRUST_PROXY_HOPS) || 1);
   app.use(helmet());
   app.use(cors({ origin: process.env.CORS_ORIGIN || '*' }));
   app.use(express.json({ limit: '10kb' }));
