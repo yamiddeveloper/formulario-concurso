@@ -31,6 +31,7 @@ test.before(async () => {
   const participante = await Participante.create({
     nombres: 'Ana',
     apellidos: 'Perez',
+    telefono: '3001234567',
     fecha_nacimiento: new Date('2010-01-01'),
     es_estudiante: false,
   });

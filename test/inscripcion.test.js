@@ -42,6 +42,7 @@ function datosValidos() {
   return {
     nombres: 'Ana Maria',
     apellidos: 'Perez Gomez',
+    telefono: '3001234567',
     fecha_nacimiento: '2010-06-01',
     es_estudiante: 'true',
     institucion: 'Colegio Chitaga',
@@ -104,6 +105,32 @@ test('rechaza a un participante fuera del rango de edad', async () => {
 
   assert.equal(res.status, 400);
   assert.ok(res.body.detalles.some((d) => d.campo === 'fecha_nacimiento'));
+});
+
+test('rechaza un telefono con muy pocos digitos', async () => {
+  const buffer = await imagenValidaBuffer();
+  const datos = { ...datosValidos(), telefono: '123' };
+  const res = await enviarInscripcion(datos, buffer);
+
+  assert.equal(res.status, 400);
+  assert.ok(res.body.detalles.some((d) => d.campo === 'telefono'));
+});
+
+test('rechaza un telefono con letras', async () => {
+  const buffer = await imagenValidaBuffer();
+  const datos = { ...datosValidos(), telefono: '300abc4567' };
+  const res = await enviarInscripcion(datos, buffer);
+
+  assert.equal(res.status, 400);
+  assert.ok(res.body.detalles.some((d) => d.campo === 'telefono'));
+});
+
+test('acepta un telefono con formato con espacios y guiones', async () => {
+  const buffer = await imagenValidaBuffer();
+  const datos = { ...datosValidos(), telefono: '300 123-4567' };
+  const res = await enviarInscripcion(datos, buffer);
+
+  assert.equal(res.status, 201);
 });
 
 test('exige institucion cuando es_estudiante es true', async () => {

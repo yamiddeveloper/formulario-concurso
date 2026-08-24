@@ -804,6 +804,11 @@ textarea {
   max-width: 48ch;
 }
 
+.success-whatsapp {
+  margin-top: var(--space-2);
+  text-decoration: none;
+}
+
 /* ---------- Estado de inscripciones cerradas / aun no abren ---------- */
 
 .ventana-estado {

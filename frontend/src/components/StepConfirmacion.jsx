@@ -56,6 +56,7 @@ export default function StepConfirmacion({ datos, onEditar, errorGeneral }) {
       <Seccion titulo="Participante" paso={1} onEditar={onEditar}>
         <dl className="summary-list">
           <Dato etiqueta="Nombre completo" valor={`${datos.nombres} ${datos.apellidos}`} />
+          <Dato etiqueta="Teléfono" valor={datos.telefono} />
           <Dato etiqueta="Edad" valor={edad !== null ? `${edad} años` : "-"} />
           <Dato
             etiqueta="Estudiante"

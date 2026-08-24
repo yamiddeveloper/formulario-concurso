@@ -12,6 +12,7 @@ export async function enviarInscripcion(data) {
   const cuerpo = new FormData();
   cuerpo.append("nombres", data.nombres.trim());
   cuerpo.append("apellidos", data.apellidos.trim());
+  cuerpo.append("telefono", data.telefono.trim());
   cuerpo.append("fecha_nacimiento", data.fecha_nacimiento);
   cuerpo.append("es_estudiante", String(data.es_estudiante === true));
   if (data.es_estudiante) {

@@ -4,6 +4,7 @@ const participanteSchema = new Schema(
   {
     nombres: { type: String, required: true, trim: true, maxlength: 100 },
     apellidos: { type: String, required: true, trim: true, maxlength: 100 },
+    telefono: { type: String, required: true, trim: true, maxlength: 20 },
     fecha_nacimiento: { type: Date, required: true },
     es_estudiante: { type: Boolean, required: true, default: false },
     institucion: {

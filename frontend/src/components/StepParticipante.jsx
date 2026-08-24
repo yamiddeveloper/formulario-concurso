@@ -123,6 +123,28 @@ export default function StepParticipante({ datos, errores, actualizarCampo, alPe
         />
       </Field>
 
+      <Field
+        label="Teléfono"
+        htmlFor="telefono"
+        required
+        hint="Para contactarte sobre el concurso. Si tiene WhatsApp, mejor."
+        error={errores.telefono}
+      >
+        <input
+          id="telefono"
+          className="input"
+          type="tel"
+          autoComplete="tel"
+          inputMode="tel"
+          enterKeyHint="next"
+          value={datos.telefono}
+          onChange={(e) => actualizarCampo("telefono", e.target.value)}
+          onBlur={() => alPerderFoco("telefono")}
+          aria-invalid={Boolean(errores.telefono)}
+          aria-describedby={describedBy("telefono", errores)}
+        />
+      </Field>
+
       <div className="field">
         <span className="field-label" id="fecha_nacimiento-label">
           Fecha de nacimiento

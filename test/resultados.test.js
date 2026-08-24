@@ -25,6 +25,7 @@ async function crearFotografia(titulo, categoria) {
   const participante = await Participante.create({
     nombres: 'Test',
     apellidos: titulo,
+    telefono: '3001234567',
     fecha_nacimiento: new Date('2010-01-01'),
     es_estudiante: false,
   });

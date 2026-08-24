@@ -26,7 +26,7 @@ async function crearInscripcion(req, res, next) {
     });
   }
 
-  const { nombres, apellidos, fecha_nacimiento, es_estudiante, institucion } = req.body;
+  const { nombres, apellidos, telefono, fecha_nacimiento, es_estudiante, institucion } = req.body;
   const { titulo, lugar, categoria, porque_tomo_la_foto, que_quiere_mostrar, significado_del_lugar } = req.body;
 
   let imagenGuardada;
@@ -49,6 +49,7 @@ async function crearInscripcion(req, res, next) {
     participante = await Participante.create({
       nombres,
       apellidos,
+      telefono,
       fecha_nacimiento,
       es_estudiante,
       institucion: es_estudiante ? institucion : undefined,

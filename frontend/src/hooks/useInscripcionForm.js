@@ -5,6 +5,7 @@ import { validarParticipante, validarFotografia, validarHistoria, validarCampo }
 const DATOS_INICIALES = {
   nombres: "",
   apellidos: "",
+  telefono: "",
   fecha_nacimiento: "",
   es_estudiante: null,
   institucion: "",
@@ -54,6 +55,7 @@ function borrarBorrador() {
 const CAMPO_A_PASO = {
   nombres: 1,
   apellidos: 1,
+  telefono: 1,
   fecha_nacimiento: 1,
   es_estudiante: 1,
   institucion: 1,

@@ -3,9 +3,16 @@ const { calcularEdad, edadEsValida, EDAD_MINIMA, EDAD_MAXIMA } = require('../uti
 const { CATEGORIAS } = require('../utils/categorias');
 
 const NOMBRE_REGEX = /^[\p{L}\s'-]+$/u;
+// Solo caracteres razonables de un numero de telefono: digitos, espacios,
+// guiones, parentesis y un + inicial para el indicativo de pais.
+const TELEFONO_CARACTERES_REGEX = /^[0-9+\-\s()]+$/;
 
 function esEstudianteTruthy(valor) {
   return valor === true || valor === 'true';
+}
+
+function contarDigitos(valor) {
+  return (valor.match(/\d/g) || []).length;
 }
 
 const inscripcionValidator = [
@@ -26,6 +33,20 @@ const inscripcionValidator = [
     .withMessage('Los apellidos deben tener entre 2 y 100 caracteres.')
     .matches(NOMBRE_REGEX)
     .withMessage('Los apellidos solo pueden contener letras, espacios, guiones y apóstrofes.'),
+
+  body('telefono')
+    .trim()
+    .notEmpty()
+    .withMessage('Ingresa tu número de teléfono.')
+    .matches(TELEFONO_CARACTERES_REGEX)
+    .withMessage('El teléfono solo puede contener números, espacios, guiones y paréntesis.')
+    .custom((valor) => {
+      const digitos = contarDigitos(valor);
+      if (digitos < 7 || digitos > 15) {
+        throw new Error('Ingresa un número de teléfono válido.');
+      }
+      return true;
+    }),
 
   body('fecha_nacimiento')
     .notEmpty()

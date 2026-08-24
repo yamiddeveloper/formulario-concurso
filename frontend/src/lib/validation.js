@@ -9,6 +9,11 @@ export const CATEGORIAS = [
 ];
 
 const NOMBRE_REGEX = /^[\p{L}\s'-]+$/u;
+const TELEFONO_CARACTERES_REGEX = /^[0-9+\-\s()]+$/;
+
+function contarDigitos(valor) {
+  return (valor.match(/\d/g) || []).length;
+}
 
 export function calcularEdad(fechaNacimiento, fechaReferencia = new Date()) {
   const nacimiento = new Date(fechaNacimiento);
@@ -48,6 +53,16 @@ export function validarParticipante(data) {
     (NOMBRE_REGEX.test(data.apellidos.trim())
       ? null
       : "Los apellidos solo pueden contener letras, espacios, guiones y apóstrofes.");
+
+  errores.telefono =
+    requerido(data.telefono, "Ingresa tu número de teléfono.") ||
+    (!TELEFONO_CARACTERES_REGEX.test(data.telefono.trim())
+      ? "El teléfono solo puede contener números, espacios, guiones y paréntesis."
+      : null) ||
+    (() => {
+      const digitos = contarDigitos(data.telefono);
+      return digitos < 7 || digitos > 15 ? "Ingresa un número de teléfono válido." : null;
+    })();
 
   if (!data.fecha_nacimiento) {
     errores.fecha_nacimiento = "Ingresa tu fecha de nacimiento.";
