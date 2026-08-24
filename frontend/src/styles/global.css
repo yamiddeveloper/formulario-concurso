@@ -84,12 +84,17 @@ textarea {
   flex-direction: column;
 }
 
+/* En movil el formulario ocupa todo el ancho: sin margenes laterales ni
+   sombra, gana espacio para los campos y quita ruido visual. Desde tablet
+   vuelve a ser una tarjeta centrada sobre el fondo calido. */
 .app-main {
   flex: 1;
+  display: flex;
+  flex-direction: column;
   width: 100%;
   max-width: var(--content-width);
   margin-inline: auto;
-  padding: var(--space-6) var(--space-4) var(--space-16);
+  padding: 0;
 }
 
 @media (min-width: 768px) {
@@ -99,14 +104,16 @@ textarea {
 }
 
 .form-card {
+  flex: 1;
   background: var(--color-background);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-md);
   padding: var(--space-6) var(--space-4);
 }
 
 @media (min-width: 768px) {
   .form-card {
+    flex: 0 0 auto;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
     padding: var(--space-12) var(--space-8);
   }
 }
@@ -173,13 +180,9 @@ textarea {
 
 .progress-steps {
   margin-top: var(--space-6);
-}
-
-.progress-steps-label {
-  font-size: var(--text-sm);
-  font-weight: 600;
-  color: var(--color-text-muted);
-  margin-bottom: var(--space-3);
+  /* Aire entre los circulos de progreso y el formulario: sin esto el primer
+     titulo queda pegado al stepper y se leen como un solo bloque. */
+  padding-bottom: var(--space-8);
 }
 
 .stepper {
@@ -289,7 +292,13 @@ textarea {
 /* ---------- Encabezado de paso ---------- */
 
 .step-header {
-  margin-bottom: var(--space-8);
+  margin-bottom: var(--space-6);
+}
+
+@media (min-width: 768px) {
+  .step-header {
+    margin-bottom: var(--space-8);
+  }
 }
 
 .step-context {
@@ -301,9 +310,25 @@ textarea {
   margin-bottom: var(--space-2);
 }
 
+/* Dentro del asistente el rotulo es una tercera capa de "donde estoy",
+   despues del stepper y del titulo. En movil ese espacio vale mas para los
+   campos, asi que solo se muestra desde tablet. Fuera del asistente (por
+   ejemplo el mensaje de inscripciones cerradas) siempre se ve. */
+@media (max-width: 767px) {
+  .step-transition .step-context {
+    display: none;
+  }
+}
+
 .step-title {
-  font-size: var(--text-3xl);
+  font-size: var(--text-2xl);
   margin-bottom: var(--space-3);
+}
+
+@media (min-width: 768px) {
+  .step-title {
+    font-size: var(--text-3xl);
+  }
 }
 
 .step-description {
@@ -312,26 +337,62 @@ textarea {
   max-width: 52ch;
 }
 
+/* En movil la accion principal vive en una barra fija al fondo: el usuario
+   no tiene que recorrer todo el formulario para encontrarla, y queda en la
+   zona alcanzable con el pulgar. Desde 640px vuelve a ser una fila normal
+   al final del contenido. */
 .step-actions {
+  position: sticky;
+  bottom: 0;
+  z-index: 10;
   display: flex;
-  flex-direction: column-reverse;
+  align-items: center;
   gap: var(--space-3);
-  margin-top: var(--space-12);
+  margin-top: var(--space-8);
+  /* Se sale del padding de la tarjeta para ocupar todo el ancho. */
+  margin-inline: calc(var(--space-4) * -1);
+  margin-bottom: calc(var(--space-6) * -1);
+  padding: var(--space-4);
+  /* Respeta la barra de gestos de iOS. */
+  padding-bottom: max(var(--space-4), env(safe-area-inset-bottom));
+  background: var(--color-background);
+  border-top: 1px solid var(--color-border-subtle);
 }
 
-.step-actions .button {
-  width: 100%;
+/* La accion principal domina la barra; "Atras" se queda compacto para no
+   competir con ella ni robar altura de pantalla. */
+.step-actions .button-primary {
+  flex: 1;
+  /* Ya ocupa el ancho disponible, asi que no necesita padding lateral
+     generoso: sin esto "Enviar participacion" se parte en dos lineas y la
+     barra crece. */
+  padding-inline: var(--space-4);
+  white-space: nowrap;
+}
+
+.step-actions .button-secondary {
+  flex: 0 0 auto;
 }
 
 @media (min-width: 640px) {
   .step-actions {
+    position: static;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
     gap: var(--space-4);
+    margin-top: var(--space-12);
+    margin-inline: 0;
+    margin-bottom: 0;
+    padding: 0;
+    background: none;
+    border-top: none;
   }
 
-  .step-actions .button {
+  .step-actions .button,
+  .step-actions .button-primary,
+  .step-actions .button-secondary {
+    flex: 0 0 auto;
     width: auto;
   }
 }

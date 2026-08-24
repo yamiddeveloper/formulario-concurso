@@ -119,6 +119,8 @@ export default function StepFotografia({ datos, errores, actualizarCampo, alPerd
           className="input"
           type="text"
           placeholder="Un título que describa tu fotografía"
+          autoCapitalize="sentences"
+          enterKeyHint="next"
           value={datos.titulo}
           onChange={(e) => actualizarCampo("titulo", e.target.value)}
           onBlur={() => alPerderFoco("titulo")}
@@ -133,6 +135,8 @@ export default function StepFotografia({ datos, errores, actualizarCampo, alPerd
           className="input"
           type="text"
           placeholder="Ej. Páramo de Chitagá"
+          autoCapitalize="words"
+          enterKeyHint="done"
           value={datos.lugar}
           onChange={(e) => actualizarCampo("lugar", e.target.value)}
           onBlur={() => alPerderFoco("lugar")}

@@ -97,6 +97,8 @@ export default function StepParticipante({ datos, errores, actualizarCampo, alPe
           className="input"
           type="text"
           autoComplete="given-name"
+          autoCapitalize="words"
+          enterKeyHint="next"
           value={datos.nombres}
           onChange={(e) => actualizarCampo("nombres", e.target.value)}
           onBlur={() => alPerderFoco("nombres")}
@@ -111,6 +113,8 @@ export default function StepParticipante({ datos, errores, actualizarCampo, alPe
           className="input"
           type="text"
           autoComplete="family-name"
+          autoCapitalize="words"
+          enterKeyHint="next"
           value={datos.apellidos}
           onChange={(e) => actualizarCampo("apellidos", e.target.value)}
           onBlur={() => alPerderFoco("apellidos")}
@@ -234,6 +238,8 @@ export default function StepParticipante({ datos, errores, actualizarCampo, alPe
             className="input"
             type="text"
             placeholder="Nombre de tu colegio o universidad"
+            autoCapitalize="words"
+            enterKeyHint="done"
             value={datos.institucion}
             onChange={(e) => actualizarCampo("institucion", e.target.value)}
             onBlur={() => alPerderFoco("institucion")}
