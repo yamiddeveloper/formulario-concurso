@@ -3,11 +3,12 @@ export default function Button({
   loading = false,
   disabled = false,
   children,
+  className = "",
   ...props
 }) {
   return (
     <button
-      className={`button button-${variant}`}
+      className={`button button-${variant}${className ? ` ${className}` : ""}`}
       disabled={disabled || loading}
       aria-busy={loading || undefined}
       {...props}

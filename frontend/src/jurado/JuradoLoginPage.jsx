@@ -35,55 +35,57 @@ export default function JuradoLoginPage() {
 
   return (
     <div className="app-shell">
-      <main className="app-main">
-        <div className="form-card jurado-login-card">
-          <p className="step-context">Panel del jurado</p>
-          <h1 className="step-title">Iniciar sesión</h1>
-          <p className="step-description">Accede con las credenciales que te compartió la organización del concurso.</p>
+      <main className="app-main app-main-pleno">
+        <div className="form-card form-card-pleno jurado-login-card">
+          <div className="jurado-login-content">
+            <p className="step-context">Panel del jurado</p>
+            <h1 className="step-title">Iniciar sesión</h1>
+            <p className="step-description">Accede con las credenciales que te compartió la organización del concurso.</p>
 
-          <form onSubmit={alEnviar} noValidate>
-            <div className="field">
-              <label className="field-label" htmlFor="usuario">
-                Usuario
-              </label>
-              <input
-                id="usuario"
-                className="input"
-                type="text"
-                autoComplete="username"
-                value={usuario}
-                onChange={(e) => setUsuario(e.target.value)}
-                required
-              />
-            </div>
+            <form onSubmit={alEnviar} noValidate className="jurado-login-form">
+              <div className="field">
+                <label className="field-label" htmlFor="usuario">
+                  Usuario
+                </label>
+                <input
+                  id="usuario"
+                  className="input"
+                  type="text"
+                  autoComplete="username"
+                  enterKeyHint="next"
+                  value={usuario}
+                  onChange={(e) => setUsuario(e.target.value)}
+                  required
+                />
+              </div>
 
-            <div className="field">
-              <label className="field-label" htmlFor="password">
-                Contraseña
-              </label>
-              <input
-                id="password"
-                className="input"
-                type="password"
-                autoComplete="current-password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-              />
-            </div>
+              <div className="field">
+                <label className="field-label" htmlFor="password">
+                  Contraseña
+                </label>
+                <input
+                  id="password"
+                  className="input"
+                  type="password"
+                  autoComplete="current-password"
+                  enterKeyHint="done"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  required
+                />
+              </div>
 
-            {error && (
-              <p className="banner banner-error" role="alert">
-                {error}
-              </p>
-            )}
+              {error && (
+                <p className="banner banner-error" role="alert">
+                  {error}
+                </p>
+              )}
 
-            <div className="step-actions step-actions-end">
-              <Button type="submit" variant="primary" loading={enviando}>
+              <Button type="submit" variant="primary" loading={enviando} className="jurado-login-boton">
                 {enviando ? "Ingresando..." : "Ingresar"}
               </Button>
-            </div>
-          </form>
+            </form>
+          </div>
         </div>
       </main>
     </div>

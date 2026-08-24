@@ -149,6 +149,33 @@
   margin-inline: auto;
 }
 
+/* .form-card-pleno centra un unico hijo dentro de la tarjeta; este envoltorio
+   es ese hijo, y conserva el ancho completo para que el titulo y la
+   descripcion sigan alineados a la izquierda en vez de encogerse al
+   contenido. */
+.jurado-login-content {
+  width: 100%;
+}
+
+/* La regla generica de .form-card-pleno usa 560px de ancho maximo desde
+   tablet; el login es un formulario corto y se ve mejor mas angosto. Misma
+   especificidad que esa regla (0,2,0), asi que gana por orden de carga. */
+@media (min-width: 768px) {
+  .jurado-login-card.form-card-pleno {
+    max-width: 420px;
+  }
+}
+
+.jurado-login-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.jurado-login-boton {
+  width: 100%;
+  margin-top: var(--space-4);
+}
+
 /* ---------- Galeria ---------- */
 
 .jurado-gallery-intro {
