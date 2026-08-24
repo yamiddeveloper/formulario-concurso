@@ -118,7 +118,22 @@ export function useInscripcionForm() {
     });
   }
 
+  // Volver atras siempre es seguro (los datos se conservan). Saltar hacia
+  // adelante solo se permite si todos los pasos intermedios ya validan: de
+  // otro modo se podria llegar a la confirmacion salteando la validacion.
+  function puedeIrAlPaso(numero) {
+    if (numero === paso || numero < 1 || numero > TOTAL_PASOS) return false;
+    if (numero < paso) return true;
+    for (let n = 1; n < numero; n += 1) {
+      const validar = VALIDADORES_POR_PASO[n];
+      if (validar && Object.keys(validar(datos)).length > 0) return false;
+    }
+    return true;
+  }
+
   function irAlPaso(numero) {
+    if (!puedeIrAlPaso(numero)) return;
+    setErrores({});
     setPaso(numero);
   }
 
@@ -188,6 +203,7 @@ export function useInscripcionForm() {
     avanzar,
     retroceder,
     irAlPaso,
+    puedeIrAlPaso,
     enviar,
   };
 }

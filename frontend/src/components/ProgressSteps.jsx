@@ -8,7 +8,7 @@ function CheckIcon() {
   );
 }
 
-export default function ProgressSteps({ paso, totalPasos, pasosCompletados }) {
+export default function ProgressSteps({ paso, totalPasos, pasosCompletados, puedeIrAlPaso, irAlPaso }) {
   return (
     <div className="progress-steps">
       {/* El texto "Paso X de Y" se omite a proposito: los circulos ya marcan
@@ -19,16 +19,40 @@ export default function ProgressSteps({ paso, totalPasos, pasosCompletados }) {
           const numero = indice + 1;
           const completado = pasosCompletados.has(numero);
           const actual = numero === paso;
-          return (
-            <li
-              key={nombre}
-              className={`stepper-item${completado ? " is-completed" : ""}${actual ? " is-current" : ""}`}
-              aria-current={actual ? "step" : undefined}
-            >
+          const navegable = puedeIrAlPaso ? puedeIrAlPaso(numero) : false;
+
+          const contenido = (
+            <>
               <span className="stepper-marker" aria-hidden="true">
                 {completado ? <CheckIcon /> : numero}
               </span>
               <span className="stepper-label">{nombre}</span>
+            </>
+          );
+
+          return (
+            <li
+              key={nombre}
+              className={`stepper-item${completado ? " is-completed" : ""}${actual ? " is-current" : ""}${
+                navegable ? " is-navegable" : ""
+              }`}
+              aria-current={actual ? "step" : undefined}
+            >
+              {/* Solo los pasos a los que se puede ir son botones. Los demas
+                  quedan como texto: un boton deshabilitado invitaria a
+                  pulsarlo sin explicar por que no responde. */}
+              {navegable ? (
+                <button
+                  type="button"
+                  className="stepper-boton"
+                  onClick={() => irAlPaso(numero)}
+                  aria-label={`Ir al paso ${numero}: ${nombre}`}
+                >
+                  {contenido}
+                </button>
+              ) : (
+                contenido
+              )}
             </li>
           );
         })}

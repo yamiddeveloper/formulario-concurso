@@ -26,6 +26,7 @@ export default function InscripcionPage() {
     avanzar,
     retroceder,
     irAlPaso,
+    puedeIrAlPaso,
     enviar,
   } = useInscripcionForm();
 
@@ -73,7 +74,13 @@ export default function InscripcionPage() {
         <header className="app-header">
           <p className="brand">Concurso de Fotografía Chitagá</p>
           {mostrarWizard && (
-            <ProgressSteps paso={paso} totalPasos={totalPasos} pasosCompletados={pasosCompletados} />
+            <ProgressSteps
+              paso={paso}
+              totalPasos={totalPasos}
+              pasosCompletados={pasosCompletados}
+              puedeIrAlPaso={puedeIrAlPaso}
+              irAlPaso={irAlPaso}
+            />
           )}
         </header>
       )}

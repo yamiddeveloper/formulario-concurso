@@ -222,6 +222,43 @@ textarea {
   background: var(--color-primary);
 }
 
+/* El boton reproduce la caja del item para que el circulo y su etiqueta
+   sigan alineados; solo agrega el area tactil y el cursor. */
+.stepper-boton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* El contenido arranca arriba y el area tactil extra crece hacia abajo:
+     asi el circulo queda a la misma altura que en los pasos no navegables y
+     sobre la linea que los conecta. */
+  justify-content: flex-start;
+  gap: var(--space-2);
+  width: 100%;
+  /* En movil las etiquetas se ocultan y solo queda el circulo de 32px, que
+     no alcanza el area tactil minima. */
+  min-height: 44px;
+  padding: 0 0 var(--space-1);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+}
+
+.stepper-boton:hover .stepper-marker {
+  border-color: var(--color-primary);
+}
+
+.stepper-boton:hover .stepper-label {
+  color: var(--color-text);
+}
+
+.stepper-boton:focus-visible {
+  outline: 2px solid var(--color-primary-strong);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
 .stepper-marker {
   position: relative;
   z-index: 1;
