@@ -21,11 +21,15 @@ let fotoA;
 let fotoB;
 let fotoC;
 
+let contadorTelefono = 0;
+
 async function crearFotografia(titulo, categoria) {
+  contadorTelefono += 1;
   const participante = await Participante.create({
     nombres: 'Test',
     apellidos: titulo,
     telefono: '3001234567',
+    telefono_normalizado: `300123456${contadorTelefono}`,
     fecha_nacimiento: new Date('2010-01-01'),
     es_estudiante: false,
   });

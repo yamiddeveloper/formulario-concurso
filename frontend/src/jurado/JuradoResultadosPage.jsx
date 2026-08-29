@@ -3,6 +3,44 @@ import { useNavigate } from "react-router-dom";
 import { useJuradoAuth } from "./JuradoAuthContext";
 import { obtenerResultados, JuradoApiError } from "./juradoApi";
 import JuradoHeader from "./JuradoHeader";
+import Button from "../components/Button";
+
+// Envuelve un valor en comillas dobles para CSV, escapando las comillas que
+// ya traiga (títulos y nombres pueden incluir comas o comillas).
+function celdaCsv(valor) {
+  return `"${String(valor ?? "").replace(/"/g, '""')}"`;
+}
+
+function exportarCsv(datos) {
+  const filas = [["Categoría", "Posición", "Título", "Participante", "Puntaje", "Calificaciones recibidas", "Ganador"]];
+
+  datos.categorias.forEach((categoria) => {
+    categoria.resultados.forEach((r) => {
+      filas.push([
+        categoria.nombre,
+        r.posicion,
+        r.titulo,
+        r.participante ? `${r.participante.nombres} ${r.participante.apellidos}` : "",
+        r.puntaje_total,
+        `${r.calificaciones_recibidas}/${datos.jurados_totales}`,
+        r.es_ganador ? "Sí" : "No",
+      ]);
+    });
+  });
+
+  const contenido = filas.map((fila) => fila.map(celdaCsv).join(",")).join("\r\n");
+  // BOM al inicio para que Excel detecte UTF-8 y no dañe las tildes.
+  const blob = new Blob(["﻿" + contenido], { type: "text/csv;charset=utf-8;" });
+  const url = URL.createObjectURL(blob);
+  const enlace = document.createElement("a");
+  const fecha = new Date().toISOString().slice(0, 10);
+  enlace.href = url;
+  enlace.download = `resultados-concurso-fotografia-chitaga-${fecha}.csv`;
+  document.body.appendChild(enlace);
+  enlace.click();
+  document.body.removeChild(enlace);
+  URL.revokeObjectURL(url);
+}
 
 function TablaCategoria({ categoria, juradosTotales }) {
   return (
@@ -132,6 +170,12 @@ export default function JuradoResultadosPage() {
               {datos.jurados_totales === 1 ? "" : "s"} {datos.jurados_totales === 1 ? "calificó" : "calificaron"}{" "}
               todas las fotografías. Estos son los ganadores finales.
             </p>
+
+            <div className="jurado-resultados-acciones">
+              <Button type="button" variant="secondary" onClick={() => exportarCsv(datos)}>
+                Exportar reporte (CSV)
+              </Button>
+            </div>
 
             {datos.categorias.map((categoria) => (
               <TablaCategoria key={categoria.clave} categoria={categoria} juradosTotales={datos.jurados_totales} />

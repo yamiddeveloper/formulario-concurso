@@ -1,6 +1,8 @@
 const { body } = require('express-validator');
 const { calcularEdad, edadEsValida, EDAD_MINIMA, EDAD_MAXIMA } = require('../utils/edad');
 const { CATEGORIAS } = require('../utils/categorias');
+const { normalizarTelefono } = require('../utils/telefono');
+const Participante = require('../models/Participante');
 
 const NOMBRE_REGEX = /^[\p{L}\s'-]+$/u;
 // Solo caracteres razonables de un numero de telefono: digitos, espacios,
@@ -13,6 +15,23 @@ function esEstudianteTruthy(valor) {
 
 function contarDigitos(valor) {
   return (valor.match(/\d/g) || []).length;
+}
+
+function escaparRegex(valor) {
+  return valor.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+// Una persona no deberia poder participar dos veces. No hay documento de
+// identidad en el formulario, asi que se detecta por telefono (chequeo
+// aparte, en el propio campo) o por nombre completo + fecha de nacimiento
+// exactos (sin importar mayusculas/minusculas).
+async function existeParticipanteConMismoNombre(nombres, apellidos, fechaNacimiento) {
+  const existente = await Participante.findOne({
+    fecha_nacimiento: fechaNacimiento,
+    nombres: { $regex: `^${escaparRegex(nombres.trim())}$`, $options: 'i' },
+    apellidos: { $regex: `^${escaparRegex(apellidos.trim())}$`, $options: 'i' },
+  }).lean();
+  return Boolean(existente);
 }
 
 const inscripcionValidator = [
@@ -40,10 +59,14 @@ const inscripcionValidator = [
     .withMessage('Ingresa tu número de teléfono.')
     .matches(TELEFONO_CARACTERES_REGEX)
     .withMessage('El teléfono solo puede contener números, espacios, guiones y paréntesis.')
-    .custom((valor) => {
+    .custom(async (valor) => {
       const digitos = contarDigitos(valor);
       if (digitos < 7 || digitos > 15) {
         throw new Error('Ingresa un número de teléfono válido.');
+      }
+      const yaExiste = await Participante.exists({ telefono_normalizado: normalizarTelefono(valor) });
+      if (yaExiste) {
+        throw new Error('Este número de teléfono ya participó en el concurso.');
       }
       return true;
     }),
@@ -54,13 +77,19 @@ const inscripcionValidator = [
     .isISO8601()
     .withMessage('La fecha de nacimiento no es válida.')
     .toDate()
-    .custom((fechaNacimiento) => {
+    .custom(async (fechaNacimiento, { req }) => {
       if (fechaNacimiento > new Date()) {
         throw new Error('La fecha de nacimiento no puede ser futura.');
       }
       const edad = calcularEdad(fechaNacimiento);
       if (!edadEsValida(edad)) {
         throw new Error(`Debes tener entre ${EDAD_MINIMA} y ${EDAD_MAXIMA} años para participar.`);
+      }
+      if (req.body.nombres && req.body.apellidos) {
+        const yaExiste = await existeParticipanteConMismoNombre(req.body.nombres, req.body.apellidos, fechaNacimiento);
+        if (yaExiste) {
+          throw new Error('Ya existe una participación registrada con este nombre y fecha de nacimiento.');
+        }
       }
       return true;
     }),

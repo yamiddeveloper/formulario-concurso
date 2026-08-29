@@ -4,6 +4,7 @@ const Fotografia = require('../models/Fotografia');
 const Historia = require('../models/Historia');
 const { validarYGuardarImagen, eliminarImagen, ImagenInvalidaError } = require('../services/imagenService');
 const { estadoInscripciones } = require('../utils/ventanaInscripciones');
+const { normalizarTelefono } = require('../utils/telefono');
 
 function obtenerEstado(req, res) {
   const { abierta, motivo, inicio, fin } = estadoInscripciones();
@@ -50,6 +51,7 @@ async function crearInscripcion(req, res, next) {
       nombres,
       apellidos,
       telefono,
+      telefono_normalizado: normalizarTelefono(telefono),
       fecha_nacimiento,
       es_estudiante,
       institucion: es_estudiante ? institucion : undefined,
@@ -87,6 +89,14 @@ async function crearInscripcion(req, res, next) {
     await eliminarImagen(imagenGuardada.publicId);
     if (fotografia) await Fotografia.findByIdAndDelete(fotografia._id).catch(() => {});
     if (participante) await Participante.findByIdAndDelete(participante._id).catch(() => {});
+
+    if (err.code === 11000 && err.keyPattern && err.keyPattern.telefono_normalizado) {
+      return res.status(400).json({
+        error: 'Hay errores en el formulario.',
+        detalles: [{ campo: 'telefono', mensaje: 'Este número de teléfono ya participó en el concurso.' }],
+      });
+    }
+
     return next(err);
   }
 }

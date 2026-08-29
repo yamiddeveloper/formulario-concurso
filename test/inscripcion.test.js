@@ -127,7 +127,7 @@ test('rechaza un telefono con letras', async () => {
 
 test('acepta un telefono con formato con espacios y guiones', async () => {
   const buffer = await imagenValidaBuffer();
-  const datos = { ...datosValidos(), telefono: '300 123-4567' };
+  const datos = { ...datosValidos(), apellidos: 'Gomez Torres', telefono: '300 987-6543' };
   const res = await enviarInscripcion(datos, buffer);
 
   assert.equal(res.status, 201);
