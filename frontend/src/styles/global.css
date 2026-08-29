@@ -165,11 +165,15 @@ textarea {
   max-width: var(--content-width);
   margin-inline: auto;
   width: 100%;
+  /* Cuando no hay stepper debajo (p. ej. la pantalla de éxito), este margen
+     es lo único que separa la marca de la tarjeta; sin él quedan pegadas. */
+  margin-bottom: var(--space-6);
 }
 
 @media (min-width: 768px) {
   .app-header {
     padding: var(--space-12) var(--space-6) 0;
+    margin-bottom: var(--space-8);
   }
 }
 

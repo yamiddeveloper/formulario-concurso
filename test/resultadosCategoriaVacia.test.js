@@ -32,6 +32,7 @@ test.before(async () => {
     nombres: 'Ana',
     apellidos: 'Perez',
     telefono: '3001234567',
+    telefono_normalizado: '3001234567',
     fecha_nacimiento: new Date('2010-01-01'),
     es_estudiante: false,
   });

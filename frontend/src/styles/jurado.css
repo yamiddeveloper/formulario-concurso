@@ -1,5 +1,14 @@
 .app-main.jurado-main {
   max-width: 1100px;
+  /* .app-main solo gana padding desde tablet; en movil el contenido del
+     jurado quedaba pegado justo debajo del header sin aire. */
+  padding: var(--space-6) var(--space-4);
+}
+
+@media (min-width: 768px) {
+  .app-main.jurado-main {
+    padding: var(--space-12) var(--space-6) var(--space-24);
+  }
 }
 
 .app-main.jurado-gallery-main {
@@ -242,7 +251,7 @@
 .jurado-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: var(--space-4);
+  gap: var(--space-6);
   list-style: none;
   margin: 0;
   padding: 0;
@@ -452,12 +461,12 @@
   background: var(--color-background);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-md);
-  padding: var(--space-6) var(--space-4);
+  padding: var(--space-8) var(--space-4);
 }
 
 @media (min-width: 768px) {
   .jurado-detail-body {
-    padding: var(--space-8);
+    padding: var(--space-8) var(--space-12);
   }
 }
 
@@ -469,11 +478,12 @@
 
 .jurado-historia {
   max-width: 70ch;
+  margin-top: var(--space-6);
   margin-bottom: var(--space-8);
 }
 
 .jurado-historia-item {
-  margin-bottom: var(--space-6);
+  margin-bottom: var(--space-8);
 }
 
 .jurado-historia-item h2 {
@@ -491,18 +501,19 @@
 
 .jurado-evaluacion {
   padding-top: var(--space-8);
+  margin-top: var(--space-2);
   border-top: 1px solid var(--color-border-subtle);
 }
 
 .jurado-evaluacion-titulo {
   font-size: var(--text-2xl);
-  margin-bottom: var(--space-2);
+  margin-bottom: var(--space-3);
 }
 
 .jurado-rubrica-categoria {
   border: none;
   padding: 0;
-  margin: var(--space-8) 0 0;
+  margin: var(--space-12) 0 0;
 }
 
 .jurado-rubrica-categoria legend {
@@ -510,27 +521,33 @@
   width: 100%;
   font-size: var(--text-lg);
   font-weight: 700;
-  margin-bottom: var(--space-3);
+  margin-bottom: var(--space-4);
   padding: 0;
 }
 
 .jurado-rubrica-opciones {
   display: flex;
   flex-direction: column;
-  gap: var(--space-3);
+  gap: var(--space-4);
 }
 
 .jurado-rubrica-opcion {
   display: flex;
   align-items: flex-start;
-  gap: var(--space-3);
-  padding: var(--space-4);
+  gap: var(--space-4);
+  padding: var(--space-4) var(--space-4);
   border: 1.5px solid var(--color-border);
   border-radius: var(--radius-md);
   cursor: pointer;
   transition:
     border-color var(--motion-fast) var(--motion-ease),
     background var(--motion-fast) var(--motion-ease);
+}
+
+@media (min-width: 768px) {
+  .jurado-rubrica-opcion {
+    padding: var(--space-4) var(--space-6);
+  }
 }
 
 .jurado-rubrica-opcion:hover {
@@ -591,6 +608,22 @@
 
 /* ---------- Resultados ---------- */
 
+.jurado-resultados-acciones {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: var(--space-6);
+}
+
+@media (max-width: 479px) {
+  .jurado-resultados-acciones {
+    justify-content: stretch;
+  }
+
+  .jurado-resultados-acciones .button {
+    width: 100%;
+  }
+}
+
 .jurado-resultados-categoria {
   margin-bottom: var(--space-8);
   background: var(--color-background);
@@ -618,7 +651,7 @@
 .jurado-resultados-lista {
   display: flex;
   flex-direction: column;
-  gap: var(--space-3);
+  gap: var(--space-4);
   list-style: none;
   margin: 0;
   padding: 0;
@@ -628,7 +661,7 @@
   display: flex;
   align-items: center;
   gap: var(--space-4);
-  padding: var(--space-3);
+  padding: var(--space-4);
   border-radius: var(--radius-md);
 }
 
